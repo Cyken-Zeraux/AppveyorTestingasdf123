@@ -1,0 +1,27 @@
+os: Visual Studio 2015
+
+environment:
+  
+  matrix:
+   - PYTHON: "C:/Python35"
+      PYTHON_VERSION: "3.5.2"
+      PYTHON_ARCH: "64"
+
+init:
+  - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
+
+install:
+  - cinst git.install
+  - cinst hg
+  - "%PYTHON%/Scripts/pip.exe install requests"
+  - "%PYTHON%/Scripts/pip.exe install tqdm"
+
+platform:
+  - x86
+  - Any CPU
+
+configuration:
+  - Release
+
+matrix:
+  - fast_finish: true
