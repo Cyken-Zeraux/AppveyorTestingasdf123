@@ -18,15 +18,9 @@ install:
   - "%PYTHON%/Scripts/pip.exe install tqdm"
 
 before_build:
-  - "cmd if defined %APPVEYOR_SCHEDULED_BUILD% ()"
+  - "cmd if defined %APPVEYOR_SCHEDULED_BUILD% (call python builder.py checkupdate)"
   - "cmd hg clone https://bitbucket.org/xilium/xilium.cefglue -r default"
   - "cmd git clone https://github.com/jp9000/OBS.git"
-
-deployment:
-  - "cmd if defined %APPVEYOR_SCHEDULED_BUILD% ()"
-
-build:
-  - %"CMD_IN_ENV% "
   
 platform:
   - x86
