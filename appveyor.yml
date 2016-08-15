@@ -14,9 +14,6 @@ install:
   - cinst git.install tortoisehg
   - "%PYTHON%/Scripts/pip.exe install requests"
   - "%PYTHON%/Scripts/pip.exe install tqdm"
-
-before_build"
-  - cmd python build/
   
 platform:
   - x86
