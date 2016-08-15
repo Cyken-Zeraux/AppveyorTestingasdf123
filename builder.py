@@ -63,30 +63,38 @@ def getspotifybuilds(versionfileloc):
 
 	
 def main(argv):
-	spotify_dict = {}
-	for arg in argv:
-		if arg == "checkupdate":
-			spotify_dict = getspotifybuilds('CefGlue/Interop/version.g.cs')
-		elif arg == "downloadupdate":
-			if not spotify_dict:
+	scheduled = os.environ.get(r'APPVEYOR_SCHEDULED_BUILD')
+	if(scheduled == True):
+		spotify_dict = {}
+		for arg in argv:
+			if arg == "checkupdate":
 				spotify_dict = getspotifybuilds('CefGlue/Interop/version.g.cs')
-				
-			response = requests.get(spotify_dict['x86']['url'], stream=True)
+				sys.exit()
+			elif arg == "downloadupdate":
+				if not spotify_dict:
+					spotify_dict = getspotifybuilds('CefGlue/Interop/version.g.cs')
+					
+				response = requests.get(spotify_dict['x86']['url'], stream=True)
 
-			with open(spotify_dict['x86']['name'], "wb") as handle:
-				total_length = int(response.headers.get('content-length'))
-				print("Downloading: " + spotify_dict['x86']['url'])
-				for data in tqdm(iterable=response.iter_content(), unit="B", unit_scale='kilo', total=(total_length) + 1):
-					handle.write(data)
+				with open(spotify_dict['x86']['name'], "wb") as handle:
+					total_length = int(response.headers.get('content-length'))
+					print("Downloading: " + spotify_dict['x86']['url'])
+					for data in tqdm(iterable=response.iter_content(), unit="B", unit_scale='kilo', total=(total_length) + 1):
+						handle.write(data)
 
-			response = requests.get(spotify_dict['x64']['url'], stream=True)
+				response = requests.get(spotify_dict['x64']['url'], stream=True)
 
-			with open(spotify_dict['x64']['name'], "wb") as handle:
-				total_length = int(response.headers.get('content-length'))
-				print("Downloading: " + spotify_dict['x64']['url'])
-				for data in tqdm(iterable=response.iter_content(), unit="B", unit_scale='kilo', total=(total_length) + 1):
-					handle.write(data)
-			
+				with open(spotify_dict['x64']['name'], "wb") as handle:
+					total_length = int(response.headers.get('content-length'))
+					print("Downloading: " + spotify_dict['x64']['url'])
+					for data in tqdm(iterable=response.iter_content(), unit="B", unit_scale='kilo', total=(total_length) + 1):
+						handle.write(data)
+						
+				sys.exit()
+	else:
+		sys.exit(0)
+	
+	
 if __name__ == "__main__":
 	main(sys.argv[1:])
 
