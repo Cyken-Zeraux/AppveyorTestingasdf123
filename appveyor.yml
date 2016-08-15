@@ -4,8 +4,8 @@ environment:
   
   matrix:
    - PYTHON: "C:/Python35"
-      PYTHON_VERSION: "3.5.2"
-      PYTHON_ARCH: "64"
+     PYTHON_VERSION: "3.5.2"
+     PYTHON_ARCH: "64"
 
 init:
   - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
