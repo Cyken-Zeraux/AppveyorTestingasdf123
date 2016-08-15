@@ -11,8 +11,7 @@ init:
   - "ECHO %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
 
 install:
-  - cinst git.install
-  - cinst hg
+  - cinst git.install hg
   - "%PYTHON%/Scripts/pip.exe install requests"
   - "%PYTHON%/Scripts/pip.exe install tqdm"
 
