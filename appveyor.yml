@@ -12,16 +12,9 @@ environment:
 init:
   - "ECHO %APPVEYOR_SCHEDULED_BUILD% %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
 
-install:
-  - cinst git.install tortoisehg
-  - "%PYTHON%/Scripts/pip.exe install requests"
-  - "%PYTHON%/Scripts/pip.exe install tqdm"
-
 before_build:
-  - "cmd if defined %APPVEYOR_SCHEDULED_BUILD% (call python builder.py checkupdate) else ( exit ) "
-  - "cmd hg clone https://bitbucket.org/xilium/xilium.cefglue -r default"
-  - "cmd git clone https://github.com/jp9000/OBS.git"
-  
+  - "cmd python test.py"
+
 platform:
   - x86
   - Any CPU
