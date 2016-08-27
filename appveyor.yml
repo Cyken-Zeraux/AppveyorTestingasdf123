@@ -13,7 +13,7 @@ init:
   - "ECHO %APPVEYOR_SCHEDULED_BUILD% %PYTHON% %PYTHON_VERSION% %PYTHON_ARCH%"
 
 before_build:
-  - "cmd python test.py"
+  - "python test.py"
 
 platform:
   - x86
